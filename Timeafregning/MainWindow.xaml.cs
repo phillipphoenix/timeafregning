@@ -24,5 +24,11 @@ namespace Timeafregning
         {
             InitializeComponent();
         }
+
+        private void afregnTimerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var afregnTimerWindow = new AfregnTimerWindow();
+            afregnTimerWindow.Show();
+        }
     }
 }
