@@ -14,20 +14,20 @@
             </DataGrid>
         </ScrollViewer>
         <Label Content="Timetal:" HorizontalAlignment="Left" Margin="409,74,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20"/>
-        <Label x:Name="timetalLabel" Content="0" HorizontalAlignment="Left" Margin="515,74,0,0" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" FontSize="20"/>
+        <Label x:Name="timetalLabel" Content="0.00 t" HorizontalAlignment="Left" Margin="515,74,0,0" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" FontSize="20"/>
         <Label Content="Sygetimer:" HorizontalAlignment="Left" Margin="409,116,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20"/>
-        <Label x:Name="sygetimerLabel" Content="0" HorizontalAlignment="Left" Margin="515,116,0,0" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" FontSize="20"/>
+        <Label x:Name="sygetimerLabel" Content="0.00 t" HorizontalAlignment="Left" Margin="515,116,0,0" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" FontSize="20"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="390,158,0,0" VerticalAlignment="Top" Width="270"/>
         <Label Content="Total:" HorizontalAlignment="Left" Margin="409,164,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20"/>
-        <Label x:Name="totalLabel" Content="0" HorizontalAlignment="Left" Margin="515,164,0,0" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" FontSize="20"/>
+        <Label x:Name="totalLabel" Content="0.00 t" HorizontalAlignment="Left" Margin="515,164,0,0" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" FontSize="20"/>
         <Button x:Name="tilfojKundeButton" Content="Tilføj kunde" HorizontalAlignment="Left" Margin="10,464,0,0" VerticalAlignment="Top" Width="335" Height="61" FontFamily="Segoe UI Light" FontSize="18" Click="tilfojKundeButton_Click"/>
         <TextBox x:Name="pengePrTimeBox" HorizontalAlignment="Left" Height="34" Margin="515,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" Text="0" FontSize="20" ToolTip="Det antal penge, som du får per time."/>
         <Label Content="Kr. pr. time:" HorizontalAlignment="Left" Margin="409,246,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20" ToolTip="Det antal penge, som du får per time."/>
         <TextBox x:Name="returtimerBox" HorizontalAlignment="Left" Height="34" Margin="515,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" Text="0" FontSize="20" ToolTip="De timer, som du ikke får penge for."/>
         <Label Content="Returtimer:" HorizontalAlignment="Left" Margin="409,288,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20" ToolTip="De timer, som du ikke får penge for."/>
         <Button x:Name="afregnTimerButton" Content="Afregn timer" HorizontalAlignment="Left" Margin="390,371,0,0" VerticalAlignment="Top" Width="270" Height="70" FontFamily="Segoe UI Light" FontSize="18" Click="afregnTimerButton_Click"/>
-        <Label Content="Penge total:" HorizontalAlignment="Left" Margin="409,475,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20"/>
-        <Label x:Name="pengeTotalLabel" Content="0" HorizontalAlignment="Left" Margin="515,475,0,0" VerticalAlignment="Top" Width="145" FontFamily="Segoe UI Light" FontSize="20"/>
+        <Label Content="Penge total:" HorizontalAlignment="Left" Margin="409,475,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20" ToolTip="(total - returtimer) * Kr. pr. time"/>
+        <Label x:Name="pengeTotalLabel" Content="0.00 kr." HorizontalAlignment="Left" Margin="537,475,0,0" VerticalAlignment="Top" Width="123" FontFamily="Segoe UI Light" FontSize="20"/>
 
     </Grid>
 </Window>

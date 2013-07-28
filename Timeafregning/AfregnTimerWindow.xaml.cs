@@ -57,7 +57,7 @@ namespace Timeafregning
         private void countAll()
         {
             // Count all hours.
-            int hours = 0, sickHours = 0, total = 0;
+            float hours = 0, sickHours = 0, total = 0;
 
             foreach (CustomerHours ch in customerHours)
             {
@@ -72,24 +72,24 @@ namespace Timeafregning
 
             // Calculate the total money earned.
             float moneyHour = 0f, totalMoney = 0f;
-            int hoursReturned = 0;
+            float hoursReturned = 0;
 
             moneyHour = float.Parse(pengePrTimeBox.Text);
-            hoursReturned = int.Parse(returtimerBox.Text);
+            hoursReturned = float.Parse(returtimerBox.Text);
 
             totalMoney = (total - hoursReturned) * moneyHour;
 
             // Set the total money label.
-            pengeTotalLabel.Content = totalMoney;
+            pengeTotalLabel.Content = totalMoney.ToString("0.00") + " kr.";
 
 
         }
 
-        private void setAfregningsLabels(int hours, int sickHours, int total)
+        private void setAfregningsLabels(float hours, float sickHours, float total)
         {
-            timetalLabel.Content = hours;
-            sygetimerLabel.Content = sickHours;
-            totalLabel.Content = total;
+            timetalLabel.Content = hours.ToString("0.00") + " t";
+            sygetimerLabel.Content = sickHours.ToString("0.00") + " t";
+            totalLabel.Content = total.ToString("0.00") + " t";
         }
 
         private void readCustomers(ObservableCollection<CustomerHours> customerHours)
