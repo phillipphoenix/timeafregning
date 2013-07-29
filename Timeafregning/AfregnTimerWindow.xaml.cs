@@ -26,17 +26,22 @@ namespace Timeafregning
     public partial class AfregnTimerWindow : Window
     {
 
+        private ControlEnabler enabler = new ControlEnabler();
         private ObservableCollection<CustomerHours> customerHours = new ObservableCollection<CustomerHours>();
+        private bool fileLoaded = false;
+        private String week, year;
 
         public AfregnTimerWindow()
         {
             InitializeComponent();
 
-            // Read in all customers.
-            readCustomers(customerHours);
+            // Set available weeks and years in the selection boxes.
+            weekComboBox.ItemsSource = WeekYear.getWeeks();
+            yearComboBox.ItemsSource = WeekYear.getYears();
 
-            // Set the customers data as the datagrid's data.
-            timeafregningstabelDataGrid.ItemsSource = customerHours;
+            // Add all controls, who need to be enabled after selecting week and year to the enabler.
+            enabler.addControl(tilfojKundeButton, afregnTimerButton, timeafregningstabelDataGrid, pengePrTimeBox, returtimerBox);
+            enabler.disable();
         }
 
         private void tilfojKundeButton_Click(object sender, RoutedEventArgs e)
@@ -49,9 +54,48 @@ namespace Timeafregning
             countAll();
         }
 
+        private void afregnTimerButton_Copy_Click(object sender, RoutedEventArgs e)
+        {
+            String weekBoxText = weekComboBox.Text, yearBoxText = yearComboBox.Text;
+            if (!weekBoxText.Equals("") && !yearBoxText.Equals(""))
+            {
+                // If file is loaded, ask to save the file.
+                if (fileLoaded)
+                {
+                    MessageBoxResult result = MessageBox.Show("Vil du gerne gemme den fil du har arbejdet med, inden du henter den nye?", "Gem fil før ny hentes?", MessageBoxButton.YesNo);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        Debug.WriteLine("Saving file: " + week + year + ".tas");
+                        // If the user want to save the current file, save it.
+                        FileSaver.saveFile(week, year, pengePrTimeBox.Text, returtimerBox.Text, customerHours);
+                    }
+                }
+
+                // Unload customerHours list.
+                customerHours = null;
+                // Load file ( or create if it doesn't exist ).
+                FileSaver.loadFile(weekBoxText, yearBoxText);
+                // Update fields in the window.
+                customerHours = FileSaver.getCustomerHours();
+                timeafregningstabelDataGrid.ItemsSource = customerHours;
+                pengePrTimeBox.Text = FileSaver.getMoneyHour().ToString();
+                returtimerBox.Text = FileSaver.getReturnHours().ToString();
+                weekShownLabel.Content = weekBoxText;
+                yearShownLabel.Content = yearBoxText;
+                // Save the week and year of the file currently getting edited.
+                week = weekBoxText;
+                year = yearBoxText;
+                // Enable editing.
+                enabler.enable();
+                // Set the fileLoaded to true.
+                fileLoaded = true;
+            }
+        }
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            writeCustomers(customerHours);
+            FileSaver.writeCustomers(customerHours);
         }
 
         private void countAll()
@@ -90,46 +134,6 @@ namespace Timeafregning
             timetalLabel.Content = hours.ToString("0.00") + " t";
             sygetimerLabel.Content = sickHours.ToString("0.00") + " t";
             totalLabel.Content = total.ToString("0.00") + " t";
-        }
-
-        private void readCustomers(ObservableCollection<CustomerHours> customerHours)
-        {
-
-            String fullPathDir = Environment.CurrentDirectory + @"\data\";
-            String fullPathFile = fullPathDir + @"customers.txt";
-
-            if (File.Exists(fullPathFile))
-            {
-                String[] customerNames = File.ReadAllLines(fullPathFile);
-
-                foreach (String customerName in customerNames)
-                {
-                    customerHours.Add(new CustomerHours() { Name = customerName });
-                }
-            }
-        }
-
-        private void writeCustomers(ObservableCollection<CustomerHours> customerHours)
-        {
-
-            String[] customerNames = new String[customerHours.Count];
-
-            for (int i = 0; i < customerHours.Count; i++ )
-            {
-                customerNames[i] = customerHours[i].Name;
-            }
-
-            String fullPathDir = Environment.CurrentDirectory + @"\data\";
-            String fullPathFile = fullPathDir + @"customers.txt";
-
-            Debug.WriteLine(fullPathDir);
-
-            if (!Directory.Exists(fullPathDir))
-            {
-                Directory.CreateDirectory(fullPathDir);
-            }
-
-            File.WriteAllLines(fullPathFile, customerNames);
         }
 
     }
