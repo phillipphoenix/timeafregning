@@ -28,6 +28,8 @@
         <Button x:Name="afregnTimerButton" Content="Afregn timer" HorizontalAlignment="Left" Margin="390,371,0,0" VerticalAlignment="Top" Width="270" Height="70" FontFamily="Segoe UI Light" FontSize="18" Click="afregnTimerButton_Click"/>
         <Label Content="Penge total:" HorizontalAlignment="Left" Margin="409,475,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="20" ToolTip="(total - returtimer) * Kr. pr. time"/>
         <Label x:Name="pengeTotalLabel" Content="0.00 kr." HorizontalAlignment="Left" Margin="537,475,0,0" VerticalAlignment="Top" Width="123" FontFamily="Segoe UI Light" FontSize="20"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="390,511,0,0" VerticalAlignment="Top" Width="270"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="1" Margin="390,517,0,0" VerticalAlignment="Top" Width="270"/>
 
     </Grid>
 </Window>
