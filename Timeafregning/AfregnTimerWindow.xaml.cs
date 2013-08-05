@@ -60,18 +60,37 @@ namespace Timeafregning
             if (!weekBoxText.Equals("") && !yearBoxText.Equals(""))
             {
                 // If file is loaded, ask to save the file.
-                if (fileLoaded)
+                saveFile(true);
+
+                // Save customer names.
+                FileSaver.writeCustomers(customerHours);
+
+                // Load file.
+                loadFile();
+            }
+        }
+
+        private void saveFile(bool askFirst = true)
+        {
+            // If file is loaded, ask to save the file.
+            if (fileLoaded)
+            {
+                MessageBoxResult result = MessageBox.Show("Vil du gerne gemme den fil du har arbejdet med, inden du henter den nye?", "Gem fil før ny hentes?", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes || askFirst == false)
                 {
-                    MessageBoxResult result = MessageBox.Show("Vil du gerne gemme den fil du har arbejdet med, inden du henter den nye?", "Gem fil før ny hentes?", MessageBoxButton.YesNo);
-
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        Debug.WriteLine("Saving file: " + week + year + ".tas");
-                        // If the user want to save the current file, save it.
-                        FileSaver.saveFile(week, year, pengePrTimeBox.Text, returtimerBox.Text, customerHours);
-                    }
+                    Debug.WriteLine("Saving file: " + week + year + ".tas");
+                    // If the user want to save the current file, save it.
+                    FileSaver.saveFile(week, year, pengePrTimeBox.Text, returtimerBox.Text, customerHours);
                 }
+            }
+        }
 
+        private void loadFile()
+        {
+            String weekBoxText = weekComboBox.Text, yearBoxText = yearComboBox.Text;
+            if (!weekBoxText.Equals("") && !yearBoxText.Equals(""))
+            {
                 // Unload customerHours list.
                 customerHours = null;
                 // Load file ( or create if it doesn't exist ).
@@ -95,6 +114,10 @@ namespace Timeafregning
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            // If file is loaded, ask to save the file.
+            saveFile(true);
+
+            // Save customer names.
             FileSaver.writeCustomers(customerHours);
         }
 

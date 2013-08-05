@@ -48,22 +48,21 @@ namespace Timeafregning.App_Logic
             }
 
             // Create a stream writer to write to the file.
-            StreamWriter writer = new StreamWriter(fullPathFile);
+            using (StreamWriter writer = new StreamWriter(fullPathFile)) {
+                // Write kr.pr.time and returtimer to the file.
+                writer.WriteLine(moneyHour);
+                writer.WriteLine(returnHours);
 
-            // Write kr.pr.time and returtimer to the file.
-            writer.WriteLine(moneyHour);
-            writer.WriteLine(returnHours);
+                // Write all customerHours data to the file.
+                foreach (CustomerHours ch in customerHours)
+                {
+                    String data = ch.Name + "," + ch.Hours + "," + ch.SickHours;
+                    writer.WriteLine(data);
+                }
 
-            // Write all customerHours data to the file.
-            foreach (CustomerHours ch in customerHours)
-            {
-                String data = ch.Name + "," + ch.Hours + "," + ch.SickHours;
-                writer.WriteLine(data);
+                // Flush the buffer.
+                writer.Flush();
             }
-
-            // Flush the buffer and close the stream.
-            writer.Flush();
-            writer.Close();
 
         }
 
@@ -84,34 +83,36 @@ namespace Timeafregning.App_Logic
                     ObservableCollection<CustomerHours> chList = new ObservableCollection<CustomerHours>();
 
                     // Create a reader to read the file.
-                    StreamReader reader = new StreamReader(fullPathFile);
+                    using (StreamReader reader = new StreamReader(fullPathFile))
+                    {
 
-                    String line;
+                        String line;
 
-                    // Read kr.pr.time and returtimer.
-                    if ((line = reader.ReadLine()) != null) {
-                        mh = float.Parse(line);
-                    }
-
-                    if ((line = reader.ReadLine()) != null) {
-                        rh = float.Parse(line);
-                    }
-
-                    while ((line = reader.ReadLine()) != null) {
-                        if (!line.Equals(""))
+                        // Read kr.pr.time and returtimer.
+                        if ((line = reader.ReadLine()) != null)
                         {
-                            String[] cInfo = line.Split(',');
-                            chList.Add(new CustomerHours() { Name = cInfo[0], Hours = float.Parse(cInfo[1]), SickHours = float.Parse(cInfo[2]) });
+                            mh = float.Parse(line);
                         }
-                    }
-                    
-                    // Set the static variables' information.
-                    moneyHour = mh;
-                    returnHours = rh;
-                    localCustomerHours = chList;
 
-                    // Close the stream.
-                    reader.Close();
+                        if ((line = reader.ReadLine()) != null)
+                        {
+                            rh = float.Parse(line);
+                        }
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            if (!line.Equals(""))
+                            {
+                                String[] cInfo = line.Split(',');
+                                chList.Add(new CustomerHours() { Name = cInfo[0], Hours = float.Parse(cInfo[1]), SickHours = float.Parse(cInfo[2]) });
+                            }
+                        }
+
+                        // Set the static variables' information.
+                        moneyHour = mh;
+                        returnHours = rh;
+                        localCustomerHours = chList;
+                    }
                 }
                 else // If file doesn't exist, create it!
                 {
@@ -132,31 +133,32 @@ namespace Timeafregning.App_Logic
         private static void createDefaultFile(String fullPathFile)
         {
             // Create a stream writer to write to the file.
-            StreamWriter writer = new StreamWriter(fullPathFile);
-
-            // Get default customerHours list.
-            ObservableCollection<CustomerHours> customerHours = new ObservableCollection<CustomerHours>();
-            readCustomers(customerHours);
-
-            // Write kr.pr.time and returtimer to the file.
-            writer.WriteLine("0");
-            writer.WriteLine("0");
-
-            // Write the default customerHours data to the file.
-            foreach (CustomerHours ch in customerHours)
+            using (StreamWriter writer = new StreamWriter(fullPathFile))
             {
-                String data = ch.Name + "," + 0 + "," + 0;
-                writer.WriteLine(data);
+
+                // Get default customerHours list.
+                ObservableCollection<CustomerHours> customerHours = new ObservableCollection<CustomerHours>();
+                readCustomers(customerHours);
+
+                // Write kr.pr.time and returtimer to the file.
+                writer.WriteLine("0");
+                writer.WriteLine("0");
+
+                // Write the default customerHours data to the file.
+                foreach (CustomerHours ch in customerHours)
+                {
+                    String data = ch.Name + "," + 0 + "," + 0;
+                    writer.WriteLine(data);
+                }
+
+                // Flush the buffer.
+                writer.Flush();
+
+                // Set the static variables' information.
+                moneyHour = 0;
+                returnHours = 0;
+                localCustomerHours = customerHours;
             }
-
-            // Flush the buffer and close the stream.
-            writer.Flush();
-            writer.Close();
-
-            // Set the static variables' information.
-            moneyHour = 0;
-            returnHours = 0;
-            localCustomerHours = customerHours;
         }
 
         // Getters for the loaded variables.
