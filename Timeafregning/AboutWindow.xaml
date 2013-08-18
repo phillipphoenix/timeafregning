@@ -4,7 +4,7 @@
         Title="Omkring" Height="300" Width="334" Background="#FFF3F3F3" WindowStartupLocation="CenterScreen" Icon="timeafregningIcon2.ico">
     <Grid>
         <Label Content="Timeafregning" Margin="44,10,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="36" HorizontalAlignment="Left"/>
-        <Label Content="Timeafregning er lavet som et mindre&#xD;&#xA;projekt for at fremme mine evner i C# og&#xD;&#xA;for at hjælpe med arbejdsopgaver vedr.&#xD;&#xA;timeafregning.&#xD;&#xA;&#xD;&#xA;Copyright © Phillip Phoelich, 2013.&#xD;&#xA;&#xD;&#xA;Timeafregning&#xD;&#xA;Version 1.5.0.0" HorizontalAlignment="Left" Margin="21,82,0,0" VerticalAlignment="Top" Height="177" Width="272" FontFamily="Segoe UI Light" FontSize="14"/>
+        <Label Content="Timeafregning er lavet som et mindre&#xA;projekt for at fremme mine evner i C# og&#xA;for at hjælpe med arbejdsopgaver vedr.&#xA;timeafregning.&#xA;&#xA;Copyright © Phillip Phoelich, 2013.&#xA;&#xA;Timeafregning&#xA;Version 1.6.0.0" HorizontalAlignment="Left" Margin="21,82,0,0" VerticalAlignment="Top" Height="177" Width="272" FontFamily="Segoe UI Light" FontSize="14"/>
 
     </Grid>
 </Window>
