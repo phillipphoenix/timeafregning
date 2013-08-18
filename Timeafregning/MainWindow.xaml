@@ -13,6 +13,7 @@
         </Menu>
         <Label Content="Timeafregning" HorizontalAlignment="Left" Margin="148,10,0,0" VerticalAlignment="Top" FontFamily="Segoe UI Light" FontSize="36"/>
         <Button x:Name="afregnTimerButton" Content="Afregn timer" HorizontalAlignment="Left" Margin="148,73,0,0" VerticalAlignment="Top" Width="227" Height="60" FontFamily="Segoe UI Light" FontSize="18" Click="afregnTimerButton_Click"/>
+        <Button x:Name="reportsButton" Content="Rapporter" HorizontalAlignment="Left" Margin="148,138,0,0" VerticalAlignment="Top" Width="227" Height="60" FontFamily="Segoe UI Light" FontSize="18" Click="reportsButton_Click"/>
 
     </Grid>
 </Window>

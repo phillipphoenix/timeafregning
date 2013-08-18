@@ -31,6 +31,12 @@ namespace Timeafregning
             afregnTimerWindow.Show();
         }
 
+        private void reportsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var reportsWindow = new ReportsWindow();
+            reportsWindow.Show();
+        }
+
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             var aboutWindow = new AboutWindow();
